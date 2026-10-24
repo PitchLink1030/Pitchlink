@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PitchLink — Hockey sur Gazon · Belgique & Europe</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--gd:#13301F;--gm:#2D6A4F;--gm2:#3A8064;--chalk:#F7F5EE;--chalk2:#EFEBE0;--ink:#16241C;--mu:#5E6F65;--ln:#D9D2C2;--am:#F2A93B;--ami:#5A3B0A;--t1:#2D6A4F;--t2:#5C8F6E;--t3:#C99B4A;--t4:#B5604A;--r:14px}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--chalk);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;font-weight:700;margin:0}
+.mono{font-family:'JetBrains Mono',monospace}
+sup{font-size:.65em}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(19,48,31,.94);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.08)}
+.nav .w{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;max-width:1080px;margin:0 auto}
+.logo{display:flex;align-items:center;gap:9px;color:#fff;font-size:18px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer}
+.logo .dot{width:9px;height:9px;border-radius:50%;background:var(--am)}
+.nav-links{display:flex;gap:26px;list-style:none;margin:0;padding:0}
+.nav-links a{color:rgba(255,255,255,.75);text-decoration:none;font-size:14px;font-weight:500;transition:color .15s}
+.nav-links a:hover{color:#fff}
+.nav-acts{display:flex;gap:10px}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.85);border:1.5px solid rgba(255,255,255,.25);padding:8px 16px;border-radius:999px;font-weight:600;font-size:13.5px;font-family:'Inter',sans-serif;cursor:pointer;transition:all .15s}
+.btn-ghost:hover{border-color:rgba(255,255,255,.6);color:#fff}
+.btn-am{background:var(--am);color:var(--ami);border:none;padding:9px 16px;border-radius:999px;font-weight:600;font-size:13.5px;font-family:'Inter',sans-serif;cursor:pointer}
+@media(max-width:720px){.nav-links{display:none}}
+
+/* HERO */
+.hero{position:relative;background:var(--gd);color:#fff;overflow:hidden;padding:80px 0 68px}
+.pitch-bg{position:absolute;inset:0;width:100%;height:100%;opacity:.15}
+.hero .w{position:relative;z-index:2;max-width:1080px;margin:0 auto;padding:0 28px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.06em;color:var(--am);background:rgba(242,169,59,.12);border:1px solid rgba(242,169,59,.35);padding:6px 12px;border-radius:999px;margin-bottom:22px}
+.hero h1{font-size:46px;line-height:1.08;max-width:680px;color:#fff}
+.hero h1 em{font-style:normal;color:var(--am)}
+.hero .lede{margin-top:18px;max-width:560px;font-size:16.5px;line-height:1.6;color:rgba(255,255,255,.78)}
+.hero-acts{margin-top:32px;display:flex;gap:12px;flex-wrap:wrap}
+.mode-btn{font-family:'Inter',sans-serif;font-weight:600;font-size:14.5px;padding:13px 22px;border-radius:10px;cursor:pointer;border:1.5px solid rgba(255,255,255,.25);background:transparent;color:#fff;transition:all .15s}
+.mode-btn.active{background:var(--am);border-color:var(--am);color:var(--ami)}
+.hero-create{background:transparent;color:rgba(255,255,255,.7);border:1.5px dashed rgba(255,255,255,.3);padding:13px 22px;border-radius:10px;font-family:'Inter',sans-serif;font-weight:600;font-size:14.5px;cursor:pointer;transition:all .15s}
+.hero-create:hover{border-color:rgba(255,255,255,.6);color:#fff}
+.hero-stats{margin-top:50px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:540px}
+.hero-stat .num{font-family:'JetBrains Mono',monospace;font-size:25px;font-weight:700;color:var(--am)}
+.hero-stat .lbl{font-size:12.5px;color:rgba(255,255,255,.62);margin-top:3px}
+
+/* LAYOUT */
+.w{max-width:1080px;margin:0 auto;padding:0 28px}
+.section{padding:62px 0}
+.sh{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:30px;flex-wrap:wrap}
+.stag{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:var(--gm);text-transform:uppercase;margin-bottom:8px;display:block}
+.sh h2{font-size:28px;color:var(--gd);max-width:560px}
+.sh p{color:var(--mu);font-size:14.5px;max-width:360px;line-height:1.55;margin:0}
+
+/* DEMO */
+.demo-sec{background:#fff;border-top:1px solid var(--ln);border-bottom:1px solid var(--ln)}
+.demo-grid{display:grid;grid-template-columns:230px 1fr;gap:26px;align-items:start}
+@media(max-width:760px){.demo-grid{grid-template-columns:1fr}}
+.filters{background:var(--chalk);border:1px solid var(--ln);border-radius:var(--r);padding:18px;position:sticky;top:80px}
+.filters h4{font-family:'Space Grotesk',sans-serif;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--gd);margin-bottom:14px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;color:var(--mu);margin-bottom:5px;font-weight:600}
+.field select,.field input{width:100%;padding:9px 10px;border-radius:8px;border:1.5px solid var(--ln);background:#fff;font-family:'Inter',sans-serif;font-size:13.5px;color:var(--ink)}
+.chk-row{display:flex;align-items:center;gap:8px;font-size:13.5px;margin-bottom:8px;color:var(--ink)}
+.chk-row input{accent-color:var(--gm);width:15px;height:15px}
+.rmeta{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.rmeta .cnt{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--mu)}
+.toggle{display:inline-flex;background:var(--chalk2);border-radius:999px;padding:3px;border:1px solid var(--ln)}
+.toggle button{border:none;background:transparent;padding:6px 13px;font-size:12.5px;font-weight:600;border-radius:999px;cursor:pointer;color:var(--mu);font-family:'Inter',sans-serif;transition:all .15s}
+.toggle button.active{background:var(--gd);color:#fff}
+
+/* CARDS */
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(max-width:560px){.cards{grid-template-columns:1fr}}
+.card{border:1px solid var(--ln);border-radius:var(--r);padding:16px;background:#fff;cursor:pointer;transition:box-shadow .15s,transform .15s,border-color .15s}
+.card:hover{box-shadow:0 8px 22px rgba(19,48,31,.1);transform:translateY(-2px);border-color:var(--gm2)}
+.card-top{display:flex;align-items:center;gap:11px;margin-bottom:12px}
+.av{width:40px;height:40px;border-radius:9px;background:var(--gd);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;flex-shrink:0}
+.cn{font-weight:700;font-size:15px;color:var(--ink)}
+.cs{font-size:12.5px;color:var(--mu);margin-top:1px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.tag{font-size:11px;font-weight:600;padding:4px 9px;border-radius:999px;background:var(--chalk);color:var(--gd);border:1px solid var(--ln);font-family:'Inter',sans-serif}
+.tag.on{background:#EAF4EE;color:var(--gm);border-color:#CFE6D8}
+.tag.off{opacity:.4}
+.lchip{display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--mu);margin:10px 0;padding:8px 10px;background:var(--chalk);border-radius:8px}
+.ld{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.t1{background:var(--t1)}.t2{background:var(--t2)}.t3{background:var(--t3)}.t4{background:var(--t4)}
+.cnote{font-size:12.5px;color:var(--mu);line-height:1.5;border-top:1px dashed var(--ln);padding-top:10px;margin-top:4px}
+.chint{font-size:11px;color:var(--gm);margin-top:6px;font-weight:600}
+.empty{grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--mu);font-size:14px}
+
+/* BARS */
+.bars{display:flex;flex-direction:column;gap:11px}
+.br{display:grid;grid-template-columns:108px 1fr 70px;align-items:center;gap:12px}
+.bc{font-size:13.5px;font-weight:600;color:var(--ink)}
+.bt{height:10px;background:var(--chalk2);border-radius:999px;overflow:hidden}
+.bf{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--gm),var(--gm2))}
+.bv{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--mu);text-align:right}
+.lnote{margin-top:22px;background:var(--chalk);border:1px solid var(--ln);border-radius:var(--r);padding:18px 20px;font-size:13.5px;color:var(--ink);line-height:1.6}
+
+/* TIMELINE */
+.tl{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:10px}
+@media(max-width:720px){.tl{grid-template-columns:1fr}}
+.ts{background:#fff;border:1px solid var(--ln);border-radius:var(--r);padding:20px}
+.ts-num{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ami);background:var(--am);width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:700;margin-bottom:12px}
+.ts h4{font-size:15px;color:var(--gd);margin-bottom:6px}
+.ts p{font-size:13px;color:var(--mu);line-height:1.55;margin:0}
+.ts.off{background:var(--gd);border-color:var(--gd)}
+.ts.off h4{color:#fff}
+.ts.off p{color:rgba(255,255,255,.72)}
+.ts.off .ts-num{background:rgba(255,255,255,.16);color:#fff}
+
+/* CTA */
+.cta-s{background:var(--gd);color:#fff;padding:62px 0 38px}
+.cta-i{text-align:center;max-width:560px;margin:0 auto}
+.cta-i h2{color:#fff;font-size:27px}
+.cta-i p{color:rgba(255,255,255,.7);font-size:14.5px;margin-top:12px;line-height:1.6}
+.cta-f{margin-top:26px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.cta-f input{padding:13px 16px;border-radius:9px;border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:#fff;font-family:'Inter',sans-serif;font-size:14px;width:260px;max-width:100%}
+.cta-f input::placeholder{color:rgba(255,255,255,.45)}
+.cta-f button{background:var(--am);color:var(--ami);border:none;padding:13px 20px;border-radius:9px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;font-size:14px}
+.cta-msg{margin-top:14px;font-size:13px;color:var(--am);font-family:'JetBrains Mono',monospace;min-height:18px}
+.foot{margin-top:48px;border-top:1px solid rgba(255,255,255,.1);padding-top:22px;font-size:12px;color:rgba(255,255,255,.4);text-align:center}
+
+/* ======= MODALS ======= */
+.overlay{position:fixed;inset:0;z-index:300;background:rgba(19,48,31,.65);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .2s ease}
+.overlay.open{opacity:1;pointer-events:all}
+.mbox{background:#fff;border-radius:20px;width:100%;max-width:600px;max-height:90vh;overflow-y:auto;transform:translateY(24px);transition:transform .25s cubic-bezier(.34,1.56,.64,1);position:relative}
+.overlay.open .mbox{transform:translateY(0)}
+.mcl{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;border:none;background:var(--chalk);color:var(--mu);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;line-height:1;transition:background .15s}
+.mcl:hover{background:var(--ln)}
+
+/* PROFILE MODAL */
+.ph{background:var(--gd);border-radius:20px 20px 0 0;padding:28px}
+.ph-top{display:flex;align-items:flex-start;gap:14px}
+.pav{width:58px;height:58px;border-radius:13px;background:rgba(255,255,255,.15);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;flex-shrink:0}
+.ph-title h3{font-size:21px;color:#fff;margin-bottom:4px}
+.ph-title .ps{color:rgba(255,255,255,.7);font-size:14px}
+.ph-lchip{display:inline-flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:rgba(255,255,255,.8);background:rgba(255,255,255,.1);padding:6px 10px;border-radius:7px;margin-top:10px}
+.pstats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--ln);border:1px solid var(--ln)}
+.pstat{padding:13px 16px;background:var(--chalk);text-align:center}
+.pstat .sv{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;color:var(--gd)}
+.pstat .sl{font-size:11.5px;color:var(--mu);margin-top:2px}
+.pb{padding:22px 26px}
+.psec{margin-bottom:22px}
+.pst{font-family:'Space Grotesk',sans-serif;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--mu);margin-bottom:10px}
+.pbio{font-size:14.5px;line-height:1.7;color:var(--ink)}
+.srow{display:flex;gap:10px;flex-wrap:wrap}
+.sbadge{display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:9px;font-size:13.5px;font-weight:600}
+.sbadge.on{background:#EAF4EE;color:var(--gm)}
+.sbadge.off{background:var(--chalk2);color:var(--mu);text-decoration:line-through;opacity:.6}
+.lc-row{display:grid;grid-template-columns:110px 1fr 56px;align-items:center;gap:10px;margin-bottom:8px}
+.lc-lbl{font-size:13px;font-weight:600;color:var(--ink)}
+.lc-lbl.be{color:var(--gd)}
+.lc-track{height:8px;background:var(--chalk2);border-radius:999px;overflow:hidden}
+.lc-fill{height:100%;border-radius:999px}
+.fill-p{background:linear-gradient(90deg,var(--t2),var(--gm2))}
+.fill-be{background:linear-gradient(90deg,var(--gd),var(--gm))}
+.lc-pts{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--mu);text-align:right}
+.nbadge{display:inline-flex;align-items:center;gap:8px;padding:8px 13px;background:#EAF4EE;border:1px solid #CFE6D8;border-radius:9px;font-size:13.5px;color:var(--gd);font-weight:600}
+.ebadge{display:inline-flex;align-items:center;gap:8px;padding:8px 13px;background:#EEF2FF;border:1px solid #C7D2FE;border-radius:9px;font-size:13.5px;color:#3730A3;font-weight:600}
+.vp{background:var(--gd);border-radius:12px;height:110px;display:flex;align-items:center;justify-content:center;gap:12px;cursor:pointer;opacity:.95}
+.vp:hover{opacity:.8}
+.play{width:40px;height:40px;background:var(--am);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.vp span{color:rgba(255,255,255,.85);font-size:13.5px;font-weight:600}
+.pcta{padding:0 26px 26px;display:flex;flex-direction:column;gap:10px}
+.btn-p{padding:15px;background:var(--gd);color:#fff;border:none;border-radius:12px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;cursor:pointer;transition:opacity .15s}
+.btn-p:hover{opacity:.9}
+.btn-s{padding:12px;background:transparent;color:var(--gd);border:1.5px solid var(--ln);border-radius:12px;font-family:'Inter',sans-serif;font-weight:600;font-size:14px;cursor:pointer;transition:border-color .15s}
+.btn-s:hover{border-color:var(--gm)}
+
+/* SIGNUP MODAL */
+.sbox{max-width:540px}
+.sh2{padding:30px 26px 0}
+.sh2 h3{font-size:20px;color:var(--gd)}
+.sh2 p{color:var(--mu);font-size:14px;margin-top:6px}
+.role-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:22px 26px}
+.rc{border:2px solid var(--ln);border-radius:14px;padding:20px 16px;cursor:pointer;text-align:center;transition:all .15s}
+.rc:hover{border-color:var(--gm);background:#EAF4EE}
+.rc.sel{border-color:var(--gm);background:#EAF4EE}
+.rc-ico{font-size:28px;margin-bottom:10px}
+.rc h4{font-size:15px;color:var(--gd);margin-bottom:4px}
+.rc p{font-size:12px;color:var(--mu);margin:0;line-height:1.45}
+.rbadge{display:inline-block;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;margin-top:8px}
+.rbadge.free{background:#EAF4EE;color:var(--gm)}
+.rbadge.frm{background:#FEF3C7;color:#92400E}
+.sf{padding:0 26px 26px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.fg{margin-bottom:12px}
+.fg label{display:block;font-size:12px;font-weight:600;color:var(--mu);margin-bottom:5px}
+.fg input,.fg select{width:100%;padding:10px 12px;border:1.5px solid var(--ln);border-radius:9px;font-family:'Inter',sans-serif;font-size:14px;color:var(--ink);background:#fff;transition:border-color .15s}
+.fg input:focus,.fg select:focus{outline:none;border-color:var(--gm)}
+.fst{font-family:'Space Grotesk',sans-serif;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--mu);margin:18px 0 10px}
+.cg{display:flex;gap:14px;flex-wrap:wrap}
+.ci{display:flex;align-items:center;gap:7px;font-size:13.5px;cursor:pointer}
+.ci input{accent-color:var(--gm);width:16px;height:16px}
+.snav{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.bbk{background:none;border:none;color:var(--mu);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:4px;font-family:'Inter',sans-serif;padding:0}
+.bbk:hover{color:var(--ink)}
+.sind{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--mu)}
+.succ{padding:40px 26px;text-align:center}
+.succ-ico{width:60px;height:60px;background:#EAF4EE;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:26px;color:var(--gm)}
+
+/* MESSAGE MODAL */
+.mh{padding:18px 22px;border-bottom:1px solid var(--ln);display:flex;align-items:center;gap:12px}
+.mav{width:38px;height:38px;border-radius:9px;background:var(--gd);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12px}
+.mhi h4{font-size:15px;color:var(--ink);margin:0}
+.mhi p{font-size:12px;color:var(--mu);margin:0}
+.mthread{padding:18px 22px;display:flex;flex-direction:column;gap:14px;min-height:210px;max-height:280px;overflow-y:auto;background:var(--chalk)}
+.mb{max-width:82%}
+.mb.them{align-self:flex-start}
+.mb.me{align-self:flex-end;text-align:right}
+.bt2{padding:10px 14px;border-radius:14px;font-size:13.5px;line-height:1.55;display:inline-block;text-align:left}
+.mb.them .bt2{background:#fff;color:var(--ink);border:1px solid var(--ln)}
+.mb.me .bt2{background:var(--gd);color:#fff}
+.btime{font-size:11px;color:var(--mu);margin-top:4px;font-family:'JetBrains Mono',monospace}
+.mfoot{padding:14px 22px;border-top:1px solid var(--ln);display:flex;gap:10px}
+.minput{flex:1;padding:10px 14px;border:1.5px solid var(--ln);border-radius:10px;font-family:'Inter',sans-serif;font-size:14px;color:var(--ink)}
+.minput:focus{outline:none;border-color:var(--gm)}
+.msend{background:var(--gd);color:#fff;border:none;padding:10px 16px;border-radius:10px;cursor:pointer;font-weight:600;font-size:13.5px;font-family:'Inter',sans-serif}
+.mdisc{padding:10px 22px 16px;font-size:11.5px;color:var(--mu);text-align:center;line-height:1.5}
+
+/* PRICING PAGE SECTION */
+.prix-s{background:var(--chalk);border-top:1px solid var(--ln)}
+.plan-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:4px}
+@media(max-width:620px){.plan-grid{grid-template-columns:1fr}}
+.plan{border:1.5px solid var(--ln);border-radius:20px;padding:26px 24px;background:#fff;position:relative;transition:box-shadow .15s,border-color .15s}
+.plan:hover{box-shadow:0 6px 22px rgba(19,48,31,.09)}
+.plan.featured{border:2px solid var(--gm)}
+.plan-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gm);color:#fff;font-size:10.5px;font-weight:700;padding:4px 16px;border-radius:999px;font-family:'Space Grotesk',sans-serif;white-space:nowrap;letter-spacing:.06em;text-transform:uppercase}
+.plan-name{font-family:'Space Grotesk',sans-serif;font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--mu);margin-bottom:10px}
+.plan-price-line{display:flex;align-items:baseline;gap:4px;margin-bottom:3px}
+.plan-price-line .curr{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--gd);align-self:flex-start;margin-top:8px}
+.plan-price-line .amt{font-family:'JetBrains Mono',monospace;font-size:38px;font-weight:700;color:var(--gd);line-height:1}
+.plan-price-line .per{font-size:13px;color:var(--mu);font-family:'Inter',sans-serif;align-self:flex-end;padding-bottom:3px}
+.plan-annual{font-size:12.5px;color:var(--gm);min-height:18px;margin-top:4px;margin-bottom:20px}
+.plan-feats{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+.plan-feat{font-size:13.5px;display:flex;align-items:flex-start;gap:10px;line-height:1.45;color:var(--ink)}
+.plan-feat .fi{flex-shrink:0;width:19px;height:19px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:700;margin-top:1px}
+.fi-yes{background:#EAF4EE;color:var(--gm)}
+.fi-no{background:var(--chalk2);color:#aaa}
+.plan-feat.fdim{color:var(--mu)}
+.plan-sep{border:none;border-top:1px solid var(--ln);margin:20px 0}
+.plan-btn{width:100%;padding:14px;border-radius:12px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;cursor:pointer;border:none;margin-top:22px;transition:all .15s}
+.pbtn-free{background:var(--chalk);color:var(--gd);border:1.5px solid var(--ln)}
+.pbtn-free:hover{background:var(--chalk2);border-color:var(--gm)}
+.pbtn-pro{background:var(--gd);color:#fff}
+.pbtn-pro:hover{opacity:.85}
+.plan-note{font-size:11.5px;color:var(--mu);text-align:center;margin-top:10px;line-height:1.5}
+.plan-limit-note{background:var(--chalk);border:1px solid var(--ln);border-radius:var(--r);padding:16px 20px;font-size:13px;color:var(--mu);line-height:1.6;margin-top:24px}
+.plan-limit-note b{color:var(--ink)}
+
+/* MODAL PLAN STEP */
+.mplan-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:18px 26px 6px}
+@media(max-width:430px){.mplan-grid{grid-template-columns:1fr}}
+.mpl{border:2px solid var(--ln);border-radius:14px;padding:16px 14px;cursor:pointer;transition:all .15s;position:relative}
+.mpl:hover{border-color:var(--gm2)}
+.mpl.msel{border-color:var(--gm);background:#EAF4EE}
+.mpl.msel.mpro{border-color:var(--am);background:#FEF9EC}
+.mpl-badge{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--am);color:var(--ami);font-size:10px;font-weight:700;padding:3px 10px;border-radius:999px;white-space:nowrap;font-family:'Space Grotesk',sans-serif;letter-spacing:.04em;text-transform:uppercase}
+.mpl-name{font-family:'Space Grotesk',sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--mu);margin-bottom:5px}
+.mpl-price{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--gd);margin-bottom:1px}
+.mpl-price .mper{font-size:11px;color:var(--mu);font-family:'Inter',sans-serif;font-weight:400}
+.mpl-annual{font-size:11px;color:var(--gm);min-height:14px;margin-bottom:11px}
+.mpl-feats{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:7px}
+.mpl-feat{font-size:12px;display:flex;align-items:flex-start;gap:7px;color:var(--ink);line-height:1.35}
+.mpl-feat.dim{color:var(--mu);text-decoration:line-through;opacity:.4}
+.mfi{flex-shrink:0;font-size:11px;line-height:1.35}
+.mplan-disc{padding:4px 26px 20px;font-size:12px;color:var(--mu);line-height:1.6}
+.mplan-disc b{color:var(--ink)}
+.succ-plan{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:9px;font-size:13px;font-weight:600;margin:12px 0}
+.succ-plan.free{background:#EAF4EE;color:var(--gm)}
+.succ-plan.pro{background:var(--gd);color:#fff}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="w">
+    <div class="logo" onclick="window.scrollTo(0,0)"><span class="dot"></span>PitchLink</div>
+    <ul class="nav-links">
+      <li><a href="#demo">Rechercher</a></li>
+      <li><a href="#niveau">Repère de niveau</a></li>
+      <li><a href="#officiel">Fonctionnement</a></li>
+      <li><a href="#tarifs">Tarifs clubs</a></li>
+    </ul>
+    <div class="nav-acts">
+      <button class="btn-ghost" onclick="openSignup()">Créer un profil</button>
+      <button class="btn-am" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Clubs pilotes</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <svg class="pitch-bg" viewBox="0 0 1080 520" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="80" x2="1080" y2="80" stroke="#fff" stroke-width="1.5"/>
+    <line x1="0" y1="440" x2="1080" y2="440" stroke="#fff" stroke-width="1.5"/>
+    <line x1="0" y1="260" x2="1080" y2="260" stroke="#fff" stroke-width="1.5"/>
+    <circle cx="540" cy="260" r="58" fill="none" stroke="#fff" stroke-width="1.5"/>
+    <circle cx="540" cy="260" r="2.5" fill="#fff"/>
+    <path d="M0 80 A200 200 0 0 1 0 440" fill="none" stroke="#fff" stroke-width="1.5"/>
+    <path d="M1080 80 A200 200 0 0 0 1080 440" fill="none" stroke="#fff" stroke-width="1.5"/>
+  </svg>
+  <div class="w">
+    <span class="eyebrow">● Belgique → Europe · maquette de travail</span>
+    <h1>Le bon joueur. La <em>bonne</em> division. Le bon pays.</h1>
+    <p class="lede">PitchLink met en relation les clubs de hockey sur gazon et les joueurs, en Belgique puis en Europe — avec un repère objectif pour comparer des niveaux qui ne se lisent pas pareil d'un championnat à l'autre.</p>
+    <div class="hero-acts">
+      <button class="mode-btn active" id="btn-club" onclick="setAud('club')">Je suis un club</button>
+      <button class="mode-btn" id="btn-player" onclick="setAud('player')">Je suis un joueur</button>
+      <button class="hero-create" onclick="openSignup()">+ Créer mon profil gratuit</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">~90</div><div class="lbl">clubs D1–D3 en Belgique</div></div>
+      <div class="hero-stat"><div class="num">2<sup>e</sup></div><div class="lbl">rang européen de la Belgique</div></div>
+      <div class="hero-stat"><div class="num">0€</div><div class="lbl">pour les joueurs, toujours</div></div>
+    </div>
+  </div>
+</header>
+
+<section class="section demo-sec" id="demo">
+  <div class="w">
+    <div class="sh">
+      <div>
+        <span class="stag">Démo — données fictives</span>
+        <h2 id="dtitle">Cherchez un joueur, pas seulement un nom de division</h2>
+      </div>
+      <p id="ddesc">Filtrez par poste, pays et disponibilité. <b>Cliquez sur une fiche</b> pour voir le profil complet.</p>
+    </div>
+    <div class="demo-grid">
+      <aside class="filters">
+        <h4>Filtres</h4>
+        <div class="field"><label>Poste</label>
+          <select id="fp" onchange="render()"><option value="">Tous les postes</option><option>Gardien</option><option>Défenseur</option><option>Milieu</option><option>Attaquant</option><option>Attaquante</option></select>
+        </div>
+        <div class="field"><label>Pays</label>
+          <select id="fpa" onchange="render()"><option value="">Tous les pays</option><option>Belgique</option><option>Espagne</option><option>France</option><option>Suisse</option><option>Italie</option></select>
+        </div>
+        <div class="field"><label>Saison</label>
+          <div class="chk-row"><input type="checkbox" id="fo" checked onchange="render()"> Gazon (outdoor)</div>
+          <div class="chk-row"><input type="checkbox" id="fi" checked onchange="render()"> Salle (indoor)</div>
+        </div>
+      </aside>
+      <div>
+        <div class="rmeta">
+          <span class="cnt" id="rcnt">— résultats</span>
+          <div class="toggle">
+            <button id="pp" class="active" onclick="setDS('players')">Joueurs</button>
+            <button id="pc" onclick="setDS('clubs')">Annonces clubs</button>
+          </div>
+        </div>
+        <div class="cards" id="cards"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="niveau">
+  <div class="w">
+    <div class="sh">
+      <div><span class="stag">Le repère de niveau</span><h2>Un nom de division ne suffit pas pour comparer deux pays</h2></div>
+      <p>Indice basé sur le coefficient pays EHF, recalculé chaque année à partir des résultats en compétitions de clubs européennes.</p>
+    </div>
+    <div class="bars">
+      <div class="br"><div class="bc">Pays-Bas</div><div class="bt"><div class="bf" style="width:100%"></div></div><div class="bv mono">43,5 pts</div></div>
+      <div class="br"><div class="bc">Belgique</div><div class="bt"><div class="bf" style="width:77%"></div></div><div class="bv mono">33,4 pts</div></div>
+      <div class="br"><div class="bc">Allemagne</div><div class="bt"><div class="bf" style="width:69%"></div></div><div class="bv mono">30,0 pts</div></div>
+      <div class="br"><div class="bc">Espagne</div><div class="bt"><div class="bf" style="width:62%"></div></div><div class="bv mono">27,1 pts</div></div>
+      <div class="br"><div class="bc">Angleterre</div><div class="bt"><div class="bf" style="width:57%"></div></div><div class="bv mono">24,6 pts</div></div>
+      <div class="br"><div class="bc">France</div><div class="bt"><div class="bf" style="width:22%"></div></div><div class="bv mono">9,8 pts</div></div>
+      <div class="br"><div class="bc">Suisse</div><div class="bt"><div class="bf" style="width:16%"></div></div><div class="bv mono">7,1 pts</div></div>
+      <div class="br"><div class="bc">Italie</div><div class="bt"><div class="bf" style="width:4%"></div></div><div class="bv mono">1,8 pt</div></div>
+    </div>
+    <div class="lnote"><b>Comment c'est utilisé :</b> ce repère apparaît sur chaque profil comme signal de contexte. Il se combine avec des données individuelles — sélection nationale, compétitions européennes de clubs, vidéo — pour aider un club à juger un profil sans se fier au seul nom de la division.</div>
+  </div>
+</section>
+
+<section class="section" id="officiel" style="background:#fff;border-top:1px solid var(--ln)">
+  <div class="w">
+    <div class="sh">
+      <div><span class="stag">Positionnement</span><h2>PitchLink ne remplace pas la procédure officielle</h2></div>
+      <p>La plateforme se place en amont du circuit administratif existant.</p>
+    </div>
+    <div class="tl">
+      <div class="ts"><div class="ts-num">1</div><h4>Découverte sur PitchLink</h4><p>Le club et le joueur se trouvent et échangent un premier message, sur base du profil et du repère de niveau.</p></div>
+      <div class="ts"><div class="ts-num">2</div><h4>Contact &amp; essai</h4><p>Les deux parties poursuivent hors plateforme : entretien, essai, accord verbal.</p></div>
+      <div class="ts off"><div class="ts-num">3</div><h4>Transfert via Sportlink</h4><p>Le transfert officiel est initié dans Sportlink, comme aujourd'hui. PitchLink ne remplace pas cette étape.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section prix-s" id="tarifs">
+  <div class="w">
+    <div class="sh">
+      <div>
+        <span class="stag">Accès clubs</span>
+        <h2>Gratuit pour démarrer.<br>Pro pour aller plus loin.</h2>
+      </div>
+      <p>Les joueurs sont toujours gratuits. Les clubs accèdent à l'essentiel sans frais — et évoluent vers le plan Pro quand c'est utile.</p>
+    </div>
+    <div class="plan-grid">
+
+      <!-- PLAN GRATUIT -->
+      <div class="plan">
+        <div class="plan-name">Club — Gratuit</div>
+        <div class="plan-price-line">
+          <span class="curr">€</span>
+          <span class="amt">0</span>
+          <span class="per">/mois</span>
+        </div>
+        <div class="plan-annual">&nbsp;</div>
+        <ul class="plan-feats">
+          <li class="plan-feat"><span class="fi fi-yes">✓</span>Profil club public sur PitchLink</li>
+          <li class="plan-feat"><span class="fi fi-yes">✓</span>1 annonce active à la fois</li>
+          <li class="plan-feat"><span class="fi fi-yes">✓</span>5 profils consultés par semaine</li>
+          <li class="plan-feat"><span class="fi fi-yes">✓</span>3 messages envoyés par mois</li>
+          <li class="plan-feat"><span class="fi fi-yes">✓</span>Filtres de base (poste, pays, format)</li>
+          <hr class="plan-sep">
+          <li class="plan-feat fdim"><span class="fi fi-no">✗</span>Alertes nouvelles inscriptions</li>
+          <li class="plan-feat fdim"><span class="fi fi-no">✗</span>Filtre par indice pays EHF</li>
+          <li class="plan-feat fdim"><span class="fi fi-no">✗</span>Export PDF des profils joueurs</li>
+          <li class="plan-feat fdim"><span class="fi fi-no">✗</span>Mise en avant dans les résultats</li>
+          <li class="plan-feat fdim"><span class="fi fi-no">✗</span>Support prioritaire</li>
+        </ul>
+        <button class="plan-btn pbtn-free" onclick="openSignup()">Créer un compte gratuit</button>
+        <p class="plan-note">Sans engagement · aucune carte requise</p>
+      </div>
+
+      <!-- PLAN PRO -->
+      <div class="plan featured">
+        <span class="plan-badge">Recommandé</span>
+        <div class="plan-name">Club Pro</div>
+        <div class="plan-price-line">
+          <span class="curr">€</span>
+          <span class="amt">49</span>
+          <span class="per">/mois</span>
+        </div>
+        <div class="plan-annual">ou <b>299 €/an</b> — soit 25 €/mois (−49 %)</div>
+        <ul class="plan-feats">
+          <li class="plan-feat"><span class="fi fi-yes">✓</span>Profil club public sur PitchLink</li>
+          <li class="plan-feat"><span class="fi fi-yes">✓</span>Annonces illimitées</li>
+          <li class="plan-feat"><span class="fi fi-yes">✓</span>Profils illimités consultables</li>
+          <li class="plan-feat"><span class="fi fi-yes">✓</span>Messages illimités</li>
+          <li class="plan-feat"><span class="fi fi-yes">✓</span>Filtres complets (poste, pays, format)</li>
+          <hr class="plan-sep">
+          <li class="plan-feat"><span class="fi fi-yes">✓</span><span>Alertes instantanées — nouveau profil correspondant à vos critères</span></li>
+          <li class="plan-feat"><span class="fi fi-yes">✓</span><span>Filtre par indice pays EHF — comparez les niveaux entre championnats</span></li>
+          <li class="plan-feat"><span class="fi fi-yes">✓</span>Export PDF des profils joueurs</li>
+          <li class="plan-feat"><span class="fi fi-yes">✓</span>Mise en avant dans les résultats de recherche</li>
+          <li class="plan-feat"><span class="fi fi-yes">✓</span>Support prioritaire</li>
+        </ul>
+        <button class="plan-btn pbtn-pro" onclick="openSignupPro()">Démarrer en Pro</button>
+        <p class="plan-note">Sans engagement · résiliable à tout moment</p>
+      </div>
+    </div>
+    <div class="plan-limit-note"><b>Maquette de travail</b> — les tarifs et fonctionnalités ci-dessus sont indicatifs et seront affinés avec les clubs pilotes avant le lancement. Rien n'est facturé à ce stade.</div>
+  </div>
+</section>
+
+<section class="cta-s" id="cta">
+  <div class="w">
+    <div class="cta-i">
+      <span class="eyebrow">Prochaine étape</span>
+      <h2>On cherche des clubs pilotes en D1 / D2</h2>
+      <p>Pas encore en ligne — ceci est une maquette de travail. Laissez un contact pour donner votre avis avant le développement.</p>
+      <form class="cta-f" onsubmit="return fakeSub(event)">
+        <input type="email" placeholder="email@club.be" required>
+        <button type="submit">Être tenu informé</button>
+      </form>
+      <div class="cta-msg" id="ctamsg"></div>
+    </div>
+    <div class="foot">PitchLink — maquette de concept, données et noms fictifs · document de travail interne</div>
+  </div>
+</section>
+
+<!-- PROFILE MODAL -->
+<div class="overlay" id="ov-prof" onclick="oc(event,'ov-prof')">
+  <div class="mbox"><button class="mcl" onclick="cm('ov-prof')">×</button><div id="prof-content"></div></div>
+</div>
+
+<!-- SIGNUP MODAL -->
+<div class="overlay" id="ov-signup" onclick="oc(event,'ov-signup')">
+  <div class="mbox sbox"><button class="mcl" onclick="cm('ov-signup')">×</button>
+    <div id="s1">
+      <div class="sh2"><h3>Créer un compte</h3><p>Choisissez votre rôle pour commencer.</p></div>
+      <div class="role-cards">
+        <div class="rc" id="r-player" onclick="selRole('player')"><div class="rc-ico">👤</div><h4>Joueur</h4><p>Créez votre profil et soyez visible auprès des clubs en Belgique et en Europe</p><span class="rbadge free">Gratuit</span></div>
+        <div class="rc" id="r-club" onclick="selRole('club')"><div class="rc-ico">🏑</div><h4>Club</h4><p>Trouvez les joueurs qui correspondent à vos besoins, avec le bon repère de niveau</p><span class="rbadge frm">Freemium</span></div>
+      </div>
+      <div style="padding:0 26px 26px"><button class="btn-p" id="s1next" onclick="goS2()" style="opacity:.35;cursor:not-allowed" disabled>Continuer →</button></div>
+    </div>
+    <div id="s2p" style="display:none">
+      <div style="padding:22px 26px 0"><div class="snav"><button class="bbk" onclick="goBack()">← Retour</button><span class="sind">Étape 2/2 · Profil joueur</span></div><h3 style="font-size:18px;color:var(--gd);margin-bottom:4px">Votre profil joueur</h3><p style="font-size:13.5px;color:var(--mu);margin:0">Ces informations seront visibles par les clubs. Modifiables à tout moment.</p></div>
+      <div class="sf">
+        <div class="frow"><div class="fg"><label>Prénom</label><input type="text" placeholder="Lucas"></div><div class="fg"><label>Nom</label><input type="text" placeholder="Vandenberghe"></div></div>
+        <div class="frow"><div class="fg"><label>Poste principal</label><select><option value="">Choisir...</option><option>Gardien / Gardienne</option><option>Défenseur / Défenseuse</option><option>Milieu</option><option>Attaquant / Attaquante</option></select></div><div class="fg"><label>Âge</label><input type="text" placeholder="24"></div></div>
+        <div class="frow"><div class="fg"><label>Pays actuel</label><select><option value="">Choisir...</option><option>Belgique</option><option>France</option><option>Espagne</option><option>Pays-Bas</option><option>Allemagne</option><option>Suisse</option><option>Italie</option><option>Autre</option></select></div><div class="fg"><label>Club actuel</label><input type="text" placeholder="RCHB Bruxelles"></div></div>
+        <div class="fg"><label>Division actuelle</label><input type="text" placeholder="ex: D1 · LFH"></div>
+        <div class="fst">Disponibilité saisonnière</div>
+        <div class="cg"><label class="ci"><input type="checkbox" checked> Gazon (outdoor)</label><label class="ci"><input type="checkbox"> Salle (indoor)</label></div>
+        <div class="frow" style="margin-top:14px"><div class="fg"><label>Disponible dès</label><input type="text" placeholder="août 2026"></div><div class="fg"><label>Mobilité</label><select><option>Locale</option><option>Nationale</option><option selected>Internationale</option></select></div></div>
+        <div class="fg"><label>Lien vidéo (optionnel)</label><input type="text" placeholder="https://youtube.com/..."></div>
+        <div class="fg"><label>Sélection nationale (si applicable)</label><input type="text" placeholder="ex: Espoirs U21 Belgique"></div>
+        <button class="btn-p" style="margin-top:8px" onclick="doSub()">Créer mon profil gratuitement</button>
+        <p style="text-align:center;font-size:11.5px;color:var(--mu);margin-top:10px">En créant un profil, vous acceptez les CGU et la politique de confidentialité.</p>
+      </div>
+    </div>
+    <div id="s2c" style="display:none">
+      <div style="padding:22px 26px 0"><div class="snav"><button class="bbk" onclick="goBack()">← Retour</button><span class="sind">Étape 2/3 · Profil club</span></div><h3 style="font-size:18px;color:var(--gd);margin-bottom:4px">Votre profil club</h3><p style="font-size:13.5px;color:var(--mu);margin:0">Ces informations seront visibles sur votre page club. Modifiables à tout moment.</p></div>
+      <div class="sf">
+        <div class="fg"><label>Nom du club</label><input type="text" placeholder="ex: RAHC Waterloo"></div>
+        <div class="frow"><div class="fg"><label>Pays</label><select><option>Belgique</option><option>France</option><option>Espagne</option><option>Pays-Bas</option><option>Allemagne</option><option>Suisse</option><option>Autre</option></select></div><div class="fg"><label>Division actuelle</label><input type="text" placeholder="ex: D1 · LFH"></div></div>
+        <div class="frow"><div class="fg"><label>Votre prénom</label><input type="text" placeholder="Jean"></div><div class="fg"><label>Votre nom</label><input type="text" placeholder="Dupont"></div></div>
+        <div class="fg"><label>Votre fonction</label><select><option>Directeur sportif</option><option>Président</option><option>Team manager</option><option>Coach principal</option><option>Autre</option></select></div>
+        <div class="fg"><label>Email de contact</label><input type="text" placeholder="direction@club.be"></div>
+        <div class="fst">Format de saison</div>
+        <div class="cg"><label class="ci"><input type="checkbox" checked> Gazon (outdoor)</label><label class="ci"><input type="checkbox"> Salle (indoor)</label></div>
+        <div class="fst" style="margin-top:14px">Poste(s) recherché(s) — prochaine saison</div>
+        <div class="cg" style="flex-direction:column;gap:8px"><label class="ci"><input type="checkbox"> Gardien / Gardienne</label><label class="ci"><input type="checkbox"> Défenseur / Défenseuse</label><label class="ci"><input type="checkbox"> Milieu</label><label class="ci"><input type="checkbox"> Attaquant / Attaquante</label></div>
+        <div class="frow" style="margin-top:14px"><div class="fg"><label>Niveau minimum souhaité</label><select><option>D1 belge ou Top 4 Europe</option><option>D2 belge ou Top 8 Europe</option><option>Ouvert à tous niveaux</option></select></div><div class="fg"><label>Disponibilité souhaitée</label><input type="text" placeholder="dès juillet 2026"></div></div>
+        <button class="btn-p" style="margin-top:8px" onclick="goS3c()">Choisir ma formule →</button>
+        <p style="text-align:center;font-size:11.5px;color:var(--mu);margin-top:10px">Étape suivante : choisir entre accès gratuit et formule Pro.</p>
+      </div>
+    </div>
+
+    <!-- STEP 3 CLUB — PLAN SELECTION -->
+    <div id="s3c" style="display:none">
+      <div style="padding:22px 26px 0">
+        <div class="snav"><button class="bbk" onclick="goBackFromS3()">← Retour</button><span class="sind">Étape 3/3 · Votre formule</span></div>
+        <h3 style="font-size:18px;color:var(--gd);margin-bottom:4px">Choisissez votre formule</h3>
+        <p style="font-size:13.5px;color:var(--mu);margin:0 0 4px">Démarrez gratuitement et évoluez selon vos besoins. Aucun engagement.</p>
+      </div>
+      <div class="mplan-grid">
+        <!-- FREE -->
+        <div class="mpl" id="mpl-free" onclick="selectPlan('free')">
+          <div class="mpl-name">Gratuit</div>
+          <div class="mpl-price">0 € <span class="mper">/mois</span></div>
+          <div class="mpl-annual">&nbsp;</div>
+          <ul class="mpl-feats">
+            <li class="mpl-feat"><span class="mfi">✓</span> 1 annonce active</li>
+            <li class="mpl-feat"><span class="mfi">✓</span> 5 profils/semaine</li>
+            <li class="mpl-feat"><span class="mfi">✓</span> 3 messages/mois</li>
+            <li class="mpl-feat"><span class="mfi">✓</span> Profil club public</li>
+            <li class="mpl-feat dim"><span class="mfi">✗</span> Alertes nouvelles inscrip.</li>
+            <li class="mpl-feat dim"><span class="mfi">✗</span> Filtre indice pays EHF</li>
+            <li class="mpl-feat dim"><span class="mfi">✗</span> Export PDF</li>
+          </ul>
+        </div>
+        <!-- PRO -->
+        <div class="mpl mpro" id="mpl-pro" onclick="selectPlan('pro')">
+          <span class="mpl-badge">Recommandé</span>
+          <div class="mpl-name">Club Pro</div>
+          <div class="mpl-price">49 € <span class="mper">/mois</span></div>
+          <div class="mpl-annual">ou 299 €/an (−49 %)</div>
+          <ul class="mpl-feats">
+            <li class="mpl-feat"><span class="mfi">✓</span> Annonces illimitées</li>
+            <li class="mpl-feat"><span class="mfi">✓</span> Profils illimités</li>
+            <li class="mpl-feat"><span class="mfi">✓</span> Messages illimités</li>
+            <li class="mpl-feat"><span class="mfi">✓</span> Profil mis en avant</li>
+            <li class="mpl-feat"><span class="mfi">✓</span> Alertes nouvelles inscrip.</li>
+            <li class="mpl-feat"><span class="mfi">✓</span> Filtre indice pays EHF</li>
+            <li class="mpl-feat"><span class="mfi">✓</span> Export PDF des profils</li>
+          </ul>
+        </div>
+      </div>
+      <div style="padding:6px 26px 0">
+        <button class="btn-p" id="s3-confirm" onclick="doSubClub()" style="opacity:.35;cursor:not-allowed" disabled>Créer le compte —</button>
+        <p style="text-align:center;font-size:11.5px;color:var(--mu);margin-top:10px">En créant un compte, vous acceptez les CGU et la politique de confidentialité.</p>
+      </div>
+      <div class="mplan-disc"><b>Aucune carte requise pour le plan Gratuit.</b> Pour le plan Pro, la facturation démarrera à l'ouverture officielle de la plateforme — vous serez informé en amont et pourrez annuler à tout moment.</div>
+    </div>
+    <div id="ssucc" style="display:none">
+      <div class="succ">
+        <div class="succ-ico">✓</div>
+        <h3 style="color:var(--gd)" id="succ-title">Profil créé !</h3>
+        <div id="succ-plan-badge"></div>
+        <p style="color:var(--mu);font-size:14px;margin-top:8px;line-height:1.6" id="succ-msg">C'est une maquette — votre profil n'est pas encore enregistré dans un vrai système. Vous voyez exactement comment le processus fonctionnera une fois la plateforme en ligne.</p>
+        <button class="btn-p" style="margin-top:20px" onclick="cm('ov-signup')">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MESSAGE MODAL -->
+<div class="overlay" id="ov-msg" onclick="oc(event,'ov-msg')">
+  <div class="mbox" style="max-width:480px"><button class="mcl" onclick="cm('ov-msg')">×</button>
+    <div class="mh"><div class="mav" id="mav">JM</div><div class="mhi"><h4 id="mname">Javier M.</h4><p id="msub">Attaquant · 🇪🇸 Espagne</p></div></div>
+    <div class="mthread" id="mthread"></div>
+    <div class="mfoot"><input type="text" class="minput" id="minput" placeholder="Écrire un message..." onkeydown="if(event.key==='Enter')sendMsg()"><button class="msend" onclick="sendMsg()">Envoyer</button></div>
+    <div class="mdisc">Premier contact uniquement. Le transfert officiel se gère ensuite via Sportlink (fédération).</div>
+  </div>
+</div>
+
+<script>
+const P={
+  LV:{type:'player',name:'Lucas V.',init:'LV',age:24,country:'Belgique',flag:'🇧🇪',div:'D1 · LFH',club:'RCHB Bruxelles',poste:'Milieu',indoor:true,outdoor:true,exp:'4 saisons',avail:'Dès août 2026',tier:1,coeff:'#2 Europe',tl:'Top 4 Europe',cp:33.4,nat:'Sélection Espoirs U21 (Belgique)',euro:false,video:true,bio:"Milieu polyvalent formé dans la région bruxelloise, à l'aise en relance comme en création. 4 saisons consécutives en D1 LFH. Disponible pour un challenge en DH ou à l'étranger.",note:'Sélection Espoirs U21 · 4 saisons en D1'},
+  TJ:{type:'player',name:'Thomas J.',init:'TJ',age:27,country:'Belgique',flag:'🇧🇪',div:'D2 · VHL',club:'Watducks B',poste:'Gardien',indoor:false,outdoor:true,exp:'2 saisons',avail:'Dès juillet 2026',tier:1,coeff:'#2 Europe',tl:'Top 4 Europe',cp:33.4,nat:null,euro:false,video:false,bio:"Gardien titulaire depuis 2 saisons en D2 VHL. Progression constante. Cherche un club D1 ou une expérience comparable à l'étranger.",note:'Gardien titulaire, 2 saisons en D2'},
+  JM:{type:'player',name:'Javier M.',init:'JM',age:28,country:'Espagne',flag:'🇪🇸',div:'División de Honor',club:'Club Egara B',poste:'Attaquant',indoor:false,outdoor:true,exp:'6 saisons',avail:'Dès sept. 2026',tier:2,coeff:'#4 Europe',tl:'Top 8 Europe',cp:27.1,nat:null,euro:true,video:true,bio:'Top buteur de sa division la saison passée (14 buts en 18 matchs). Profil physique, efficace sur penalty corner. Ouvert à un transfert vers un championnat Top 4 Europe.',note:'Top buteur de sa division · vidéo disponible'},
+  SL:{type:'player',name:'Sophie L.',init:'SL',age:23,country:'France',flag:'🇫🇷',div:'Élite · Nationale 1',club:'HC Lille Métropole',poste:'Milieu',indoor:true,outdoor:true,exp:'3 saisons',avail:'Dès juillet 2026',tier:3,coeff:'#9 Europe',tl:'Milieu de tableau',cp:9.8,nat:'Équipe de France U23',euro:false,video:true,bio:'Capitaine depuis 2 ans, joue outdoor et indoor au plus haut niveau français. Cherche une expérience dans un championnat Top 8. Parle FR/EN.',note:'Capitaine · joue indoor et outdoor'},
+  AK:{type:'player',name:'Anna K.',init:'AK',age:26,country:'Suisse',flag:'🇨🇭',div:'NLA',club:'HC Wettingen',poste:'Attaquante',indoor:true,outdoor:true,exp:'3 saisons',avail:'Dès août 2026',tier:3,coeff:'#11 Europe',tl:'Milieu de tableau',cp:7.1,nat:null,euro:false,video:false,bio:"3 saisons au top niveau suisse (NLA). Joue indoor et outdoor. Cherche une expérience dans un championnat plus compétitif. Parle DE/FR/EN.",note:"3 saisons NLA · ouverte à un transfert"},
+  MB:{type:'player',name:'Marco B.',init:'MB',age:29,country:'Italie',flag:'🇮🇹',div:'Serie A1',club:'HC Bra',poste:'Défenseur',indoor:false,outdoor:true,exp:'5 saisons',avail:'Dès juillet 2026',tier:4,coeff:'#14 Europe',tl:'Bas de tableau',cp:1.8,nat:null,euro:false,video:true,bio:'Défenseur central expérimenté, 5 saisons en Serie A1 italienne. Cherche un challenge dans un championnat européen supérieur. Parle IT/EN.',note:'Défenseur central · cherche un défi à l\'étranger'},
+  KW:{type:'club',name:'KHC Wommelgem',init:'KW',country:'Belgique',flag:'🇧🇪',div:'D2 · VHL',poste:'Défenseur',indoor:true,outdoor:true,tier:1,coeff:'#2 Europe',tl:'Top 4 Europe',cp:33.4,avail:'Dès août 2026',lvlReq:'D2 belge min. ou Top 8 Europe',bio:"Club historique de la province d'Anvers, actuellement en D2 VHL. Ambition D1 dans les prochaines saisons. Cherche un défenseur expérimenté pour renforcer l'axe central.",note:'Effectif à compléter · dispo dès août'},
+  RW:{type:'club',name:'RAHC Waterloo',init:'RW',country:'Belgique',flag:'🇧🇪',div:'D1 · LFH',poste:'Gardien',indoor:false,outdoor:true,tier:1,coeff:'#2 Europe',tl:'Top 4 Europe',cp:33.4,avail:'Dès juillet 2026',lvlReq:'D1 belge ou Top 8 Europe',bio:'Club du Brabant Wallon en D1 LFH. Cherche un gardien expérimenté pour 2026-2027. Profil D1 belge minimum ou étranger Top 8 Europe.',note:'Recherche un gardien expérimenté · D1 minimum'},
+  CE:{type:'club',name:'Club Egara',init:'CE',country:'Espagne',flag:'🇪🇸',div:'División de Honor B',poste:'Milieu',indoor:false,outdoor:true,tier:2,coeff:'#4 Europe',tl:'Top 8 Europe',cp:27.1,avail:'Dès sept. 2026',lvlReq:'Ouvert à tous niveaux européens',bio:'Club de Terrassa (Catalogne). División de Honor B. Ouvert à des profils internationaux pour renforcer le milieu.',note:'Ouvert aux profils internationaux'},
+  HL:{type:'club',name:'HC Lausanne',init:'HL',country:'Suisse',flag:'🇨🇭',div:'NLA',poste:'Attaquante',indoor:true,outdoor:true,tier:3,coeff:'#11 Europe',tl:'Milieu de tableau',cp:7.1,avail:'Dès août 2026',lvlReq:'Expérience nationale ou internationale',bio:"Club NLA à Lausanne, jouant indoor et outdoor. Cherche un profil offensif pouvant s'intégrer dans les deux formats.",note:'Double saison indoor/outdoor'}
+};
+const PK=['LV','TJ','JM','SL','AK','MB'];
+const CK=['KW','RW','CE','HL'];
+let aud='club',ds='players',role=null;
+
+function setAud(a){
+  aud=a;
+  document.getElementById('btn-club').classList.toggle('active',a==='club');
+  document.getElementById('btn-player').classList.toggle('active',a==='player');
+  if(a==='club'){setDS('players');document.getElementById('dtitle').textContent="Cherchez un joueur, pas seulement un nom de division";document.getElementById('ddesc').innerHTML="Filtrez par poste, pays et disponibilité. <b>Cliquez sur une fiche</b> pour voir le profil complet.";}
+  else{setDS('clubs');document.getElementById('dtitle').textContent="Trouvez un club qui correspond à votre profil";document.getElementById('ddesc').innerHTML="Parcourez les besoins publiés par des clubs en Belgique et en Europe. <b>Cliquez pour voir l'annonce complète.</b>";}
+}
+function setDS(d){ds=d;document.getElementById('pp').classList.toggle('active',d==='players');document.getElementById('pc').classList.toggle('active',d==='clubs');render();}
+function render(){
+  const fp=document.getElementById('fp').value,fpa=document.getElementById('fpa').value,fo=document.getElementById('fo').checked,fi=document.getElementById('fi').checked;
+  const keys=ds==='players'?PK:CK;
+  const f=keys.filter(k=>{const p=P[k];if(fp&&p.poste!==fp)return false;if(fpa&&p.country!==fpa)return false;if(!fo&&!fi)return false;if(fo&&!fi&&!p.outdoor)return false;if(fi&&!fo&&!p.indoor)return false;return true;});
+  document.getElementById('rcnt').textContent=f.length+(f.length>1?' résultats':' résultat');
+  const g=document.getElementById('cards');
+  if(!f.length){g.innerHTML='<div class="empty">Aucun résultat — élargissez les filtres.</div>';return;}
+  g.innerHTML=f.map(k=>{const p=P[k];return`<div class="card" onclick="openProf('${k}')"><div class="card-top"><div class="av">${p.init}</div><div><div class="cn">${p.name}</div><div class="cs">${p.flag} ${p.country} · ${p.div}</div></div></div><div class="tags"><span class="tag">${p.poste}</span><span class="tag ${p.outdoor?'on':'off'}">Gazon</span><span class="tag ${p.indoor?'on':'off'}">Salle</span></div><div class="lchip"><span class="ld t${p.tier}"></span>Indice pays : ${p.coeff} <span style="opacity:.6">(${p.tl})</span></div><div class="cnote">${p.note}</div><div class="chint">→ Voir le profil complet</div></div>`;}).join('');
+}
+
+// PROFILE
+function openProf(id){
+  const p=P[id];if(!p)return;
+  const BE=33.4,MAX=43.5;
+  let html='';
+  if(p.type==='player'){
+    const pPct=Math.round(p.cp/MAX*100),bePct=Math.round(BE/MAX*100),notBe=p.country!=='Belgique';
+    html=`<div class="ph"><div class="ph-top"><div class="pav">${p.init}</div><div class="ph-title"><h3>${p.name}</h3><div class="ps">${p.flag} ${p.country} · ${p.div} · ${p.poste}</div></div></div><div class="ph-lchip"><span class="ld t${p.tier}"></span>Indice pays : ${p.coeff} (${p.tl})</div></div>
+    <div class="pstats"><div class="pstat"><div class="sv">${p.age} ans</div><div class="sl">Âge</div></div><div class="pstat"><div class="sv">${p.exp}</div><div class="sl">Expérience</div></div><div class="pstat"><div class="sv">${p.avail}</div><div class="sl">Disponibilité</div></div></div>
+    <div class="pb">
+      <div class="psec"><div class="pst">Disponibilité saisonnière</div><div class="srow"><div class="sbadge ${p.outdoor?'on':'off'}">🌱 Gazon ${p.outdoor?'✓':'✗'}</div><div class="sbadge ${p.indoor?'on':'off'}">🏟 Salle ${p.indoor?'✓':'✗'}</div></div></div>
+      <div class="psec"><div class="pst">À propos</div><div class="pbio">${p.bio}</div></div>
+      ${p.nat?`<div class="psec"><div class="pst">Sélection nationale</div><span class="nbadge">🏳️ ${p.nat}</span></div>`:''}
+      ${p.euro?`<div class="psec"><div class="pst">Expérience européenne</div><span class="ebadge">★ A participé à des compétitions EHF de clubs</span></div>`:''}
+      ${notBe?`<div class="psec"><div class="pst">Contexte de niveau — championnat d'origine vs Belgique</div>
+        <div class="lc-row"><div class="lc-lbl">${p.country} ${p.coeff}</div><div class="lc-track"><div class="lc-fill fill-p" style="width:${pPct}%"></div></div><div class="lc-pts">${p.cp} pts</div></div>
+        <div class="lc-row"><div class="lc-lbl be">Belgique #2</div><div class="lc-track"><div class="lc-fill fill-be" style="width:${bePct}%"></div></div><div class="lc-pts">${BE} pts</div></div>
+        <p style="font-size:12.5px;color:var(--mu);margin-top:10px;line-height:1.6">Signal de contexte uniquement — à combiner avec les informations individuelles ci-dessus.</p></div>`:''}
+      ${p.video?`<div class="psec"><div class="pst">Vidéo highlight</div><div class="vp"><div class="play"><span style="color:var(--ami);font-size:18px">▶</span></div><span>Voir la vidéo (lien fictif dans ce prototype)</span></div></div>`:''}
+    </div>
+    <div class="pcta"><button class="btn-p" onclick="openMsg('${p.name}','${p.init}','${p.poste} · ${p.flag} ${p.country} · ${p.div}',false)">✉ Envoyer un message</button><button class="btn-s" onclick="cm('ov-prof')">Fermer le profil</button></div>`;
+  } else {
+    html=`<div class="ph"><div class="ph-top"><div class="pav">${p.init}</div><div class="ph-title"><h3>${p.name}</h3><div class="ps">${p.flag} ${p.country} · ${p.div}</div></div></div><div class="ph-lchip"><span class="ld t${p.tier}"></span>Indice pays : ${p.coeff} (${p.tl})</div></div>
+    <div class="pstats"><div class="pstat"><div class="sv">${p.poste}</div><div class="sl">Poste recherché</div></div><div class="pstat"><div class="sv">${p.avail}</div><div class="sl">Disponibilité</div></div><div class="pstat"><div class="sv">${p.outdoor&&p.indoor?'Outdoor + Indoor':p.outdoor?'Outdoor':'Indoor'}</div><div class="sl">Format</div></div></div>
+    <div class="pb">
+      <div class="psec"><div class="pst">À propos du club</div><div class="pbio">${p.bio}</div></div>
+      <div class="psec"><div class="pst">Niveau minimum requis</div><span class="ebadge">📊 ${p.lvlReq}</span></div>
+      <div class="psec"><div class="pst">Format de saison</div><div class="srow"><div class="sbadge ${p.outdoor?'on':'off'}">🌱 Gazon ${p.outdoor?'✓':'✗'}</div><div class="sbadge ${p.indoor?'on':'off'}">🏟 Salle ${p.indoor?'✓':'✗'}</div></div></div>
+    </div>
+    <div class="pcta"><button class="btn-p" onclick="openMsg('${p.name}','${p.init}','${p.div} · ${p.flag} ${p.country}',true)">✉ Envoyer mon profil au club</button><button class="btn-s" onclick="cm('ov-prof')">Fermer</button></div>`;
+  }
+  document.getElementById('prof-content').innerHTML=html;
+  om('ov-prof');
+}
+
+// MESSAGE
+function openMsg(name,init,sub,isClub){
+  cm('ov-prof');
+  document.getElementById('mname').textContent=name;
+  document.getElementById('mav').textContent=init;
+  document.getElementById('msub').textContent=sub;
+  const intro=isClub?`Bonjour, je suis intéressé par votre annonce et j'aimerais vous soumettre mon profil.`:`Bonjour, j'ai vu votre profil sur PitchLink et votre parcours m'intéresse pour notre effectif.`;
+  document.getElementById('mthread').innerHTML=`<div class="mb them"><div class="bt2">${intro}</div><div class="btime">${isClub?'Vous':'RAHC Waterloo'} · 14:03</div></div>`;
+  document.getElementById('minput').value='';
+  setTimeout(()=>om('ov-msg'),80);
+}
+function sendMsg(){
+  const i=document.getElementById('minput'),t=i.value.trim();if(!t)return;
+  const th=document.getElementById('mthread');
+  th.innerHTML+=`<div class="mb me"><div class="bt2">${t}</div><div class="btime">Vous · maintenant</div></div>`;
+  i.value='';th.scrollTop=th.scrollHeight;
+  setTimeout(()=>{th.innerHTML+=`<div class="mb them"><div class="bt2">Merci pour votre message — je vous répondrai prochainement. (Prototype — pas de vrai envoi.)</div><div class="btime">Réponse automatique · prototype</div></div>`;th.scrollTop=th.scrollHeight;},900);
+}
+
+// SIGNUP
+let chosenPlan=null;
+function openSignup(){
+  role=null;chosenPlan=null;
+  ['s1','s2p','s2c','s3c','ssucc'].forEach(id=>document.getElementById(id).style.display=id==='s1'?'block':'none');
+  document.querySelectorAll('.rc').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.mpl').forEach(c=>c.classList.remove('msel'));
+  const b=document.getElementById('s1next');b.disabled=true;b.style.opacity='.35';b.style.cursor='not-allowed';
+  om('ov-signup');
+}
+function openSignupPro(){openSignup();setTimeout(()=>{selRole('club');const b=document.getElementById('s1next');b.disabled=false;b.style.opacity='1';b.style.cursor='pointer';},50);}
+function selRole(r){role=r;document.querySelectorAll('.rc').forEach(c=>c.classList.remove('sel'));document.getElementById('r-'+r).classList.add('sel');const b=document.getElementById('s1next');b.disabled=false;b.style.opacity='1';b.style.cursor='pointer';}
+function goS2(){if(!role)return;document.getElementById('s1').style.display='none';document.getElementById('s2'+role[0]).style.display='block';}
+function goBack(){['s2p','s2c','s3c'].forEach(id=>document.getElementById(id).style.display='none');document.getElementById('s1').style.display='block';}
+function goS3c(){document.getElementById('s2c').style.display='none';document.getElementById('s3c').style.display='block';}
+function goBackFromS3(){document.getElementById('s3c').style.display='none';document.getElementById('s2c').style.display='block';}
+function selectPlan(plan){
+  chosenPlan=plan;
+  document.getElementById('mpl-free').classList.toggle('msel',plan==='free');
+  document.getElementById('mpl-pro').classList.toggle('msel',plan==='pro');
+  const btn=document.getElementById('s3-confirm');
+  btn.disabled=false;btn.style.opacity='1';btn.style.cursor='pointer';
+  btn.textContent=plan==='pro'?'Démarrer en Pro →':'Créer mon compte gratuit →';
+}
+function doSub(){
+  ['s2p'].forEach(id=>document.getElementById(id).style.display='none');
+  document.getElementById('succ-title').textContent='Profil joueur créé !';
+  document.getElementById('succ-plan-badge').innerHTML='';
+  document.getElementById('succ-msg').textContent="C'est une maquette — votre profil n'est pas encore enregistré dans un vrai système. Vous verrez exactement ce flux une fois la plateforme en ligne.";
+  document.getElementById('ssucc').style.display='block';
+}
+function doSubClub(){
+  document.getElementById('s3c').style.display='none';
+  const isPro=chosenPlan==='pro';
+  document.getElementById('succ-title').textContent=isPro?'Compte Pro créé !':'Compte gratuit créé !';
+  document.getElementById('succ-plan-badge').innerHTML=isPro
+    ?'<span class="succ-plan pro">★ Club Pro — 49 €/mois</span>'
+    :'<span class="succ-plan free">✓ Plan Gratuit activé</span>';
+  document.getElementById('succ-msg').textContent=isPro
+    ?"Votre compte Club Pro est actif. Accès illimité aux profils, alertes en temps réel, filtre par indice pays EHF. Aucune facturation avant l'ouverture officielle — vous serez prévenu en amont."
+    :"Votre compte gratuit est prêt. Vous pouvez publier une annonce et consulter jusqu'à 5 profils par semaine. Évoluez vers le plan Pro à tout moment depuis votre tableau de bord.";
+  document.getElementById('ssucc').style.display='block';
+}
+
+// MODAL UTILS
+function om(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden';}
+function cm(id){document.getElementById(id).classList.remove('open');document.body.style.overflow='';}
+function oc(e,id){if(e.target===document.getElementById(id))cm(id);}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')['ov-prof','ov-signup','ov-msg'].forEach(cm);});
+function fakeSub(e){e.preventDefault();document.getElementById('ctamsg').textContent='✓ Noté — je vous tiens au courant.';e.target.reset();return false;}
+
+render();
+</script>
+</body>
+</html>
